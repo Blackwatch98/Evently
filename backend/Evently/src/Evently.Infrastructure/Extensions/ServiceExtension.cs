@@ -43,6 +43,7 @@ namespace Evently.Infrastructure.Extensions
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IDomainEventDispatcher, DomainEventDispatcher>();
             services.AddScoped<IDomainEventHandler<EventCreated>, LogEventCreatedHandler>();
+            services.AddScoped<IDomainEventHandler<EventCreated>, CreateEventReadModelHandler>();
         }
 
         private static void RegisterServices(IServiceCollection services)
