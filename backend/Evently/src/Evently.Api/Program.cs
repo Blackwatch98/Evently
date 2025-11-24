@@ -1,12 +1,12 @@
+using Evently.Api.Endpoints;
 using Evently.Api.Extensions;
-using Evently.Application.Events.CreateEvent;
 using Evently.Infrastructure.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.AddInfrastructure();
+builder.Configuration.AddUserSecrets<Program>();
 
-builder.Services.AddControllers();
+builder.AddInfrastructure();
 
 builder.Services.AddEndpointsApiExplorer();
 
@@ -19,13 +19,6 @@ app.UseSwaggerDocumentation();
 
 app.UseHttpsRedirection();
 
-//app.UseAuthorization();
-//app.MapControllers();
-
-app.MapPost("/api/events", async (CreateEventCommand command, CreateEventHandler handler) =>
-{
-    var id = await handler.HandleAsync(command);
-    return Results.Created($"/api/events/{id}", new { id });
-});
+app.MapEventEndpoints();
 
 app.Run();

@@ -5,11 +5,11 @@ namespace Evently.Infrastructure
 {
     public class EventlyDbContext : DbContext
     {
+        public DbSet<Event> Events => Set<Event>();
+
         public EventlyDbContext(DbContextOptions<EventlyDbContext> options) : base(options)
         {
         }
-
-        public DbSet<Event> Events => Set<Event>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

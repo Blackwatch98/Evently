@@ -1,6 +1,9 @@
 ﻿using Evently.Application.Abstractions;
 using Evently.Application.Events.CreateEvent;
+using Evently.Application.Events.EventCreatedHandlers;
 using Evently.Domain.Abstractions;
+using Evently.Domain.Events;
+using Evently.Infrastructure.DomainEvents;
 using Evently.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
@@ -28,7 +31,8 @@ namespace Evently.Infrastructure.Extensions
         {
             services.AddDbContext<EventlyDbContext>(options =>
                 options.UseSqlServer(
-                    configuration.GetConnectionString("DefaultConnection")));
+                    configuration.GetConnectionString("DefaultConnection"), b =>
+                        b.MigrationsAssembly("Evently.Infrastructure")));
 
             return services;
         }
@@ -37,6 +41,8 @@ namespace Evently.Infrastructure.Extensions
         {
             services.AddScoped<IEventRepository, EventRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IDomainEventDispatcher, DomainEventDispatcher>();
+            services.AddScoped<IDomainEventHandler<EventCreated>, LogEventCreatedHandler>();
         }
 
         private static void RegisterServices(IServiceCollection services)
