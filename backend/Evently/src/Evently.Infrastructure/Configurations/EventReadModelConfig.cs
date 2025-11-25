@@ -1,0 +1,20 @@
+﻿using Evently.Infrastructure.ReadModels;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+namespace Evently.Infrastructure.Configurations
+{
+    public sealed class EventReadModelConfig : IEntityTypeConfiguration<EventReadModel>
+    {
+        public void Configure(EntityTypeBuilder<EventReadModel> builder)
+        {
+            builder.ToTable("EntityReadModels", schema: "EMain");
+
+            builder.HasKey(r => r.IdReadModel);
+
+            builder.Property(r => r.Title)
+                .IsRequired()
+                .HasMaxLength(200);
+        }
+    }
+}

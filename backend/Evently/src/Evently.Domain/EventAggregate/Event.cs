@@ -6,7 +6,7 @@ namespace Evently.Domain.EventAggregate
     public sealed class Event : Entity
     {
         private Event() { }
-        public Guid Id { get; private set; }
+        public Guid IdEvent { get; private set; }
         public string Title { get; private set; } = default!;
         public string Description { get; private set; } = default!;
         public DateTime ScheduledAt { get; private set; }
@@ -14,13 +14,13 @@ namespace Evently.Domain.EventAggregate
 
         private Event(string title, string description, DateTime scheduledAt, int capacity)
         {
-            Id = Guid.NewGuid();
+            IdEvent = Guid.NewGuid();
             Title = title;
             Description = description;
             ScheduledAt = scheduledAt;
             Capacity = capacity;
 
-            AddDomainEvent(new EventCreated(Id, Title, ScheduledAt));
+            AddDomainEvent(new EventCreated(IdEvent, Title, ScheduledAt));
         }
 
         public static Event Create(string title, string description, DateTime scheduledAt, int capacity)

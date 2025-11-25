@@ -1,6 +1,7 @@
 ﻿using Evently.Application.Abstractions;
 using Evently.Application.Events.CreateEvent;
 using Evently.Application.Events.EventCreatedHandlers;
+using Evently.Application.Registrations.RegisterForEvent;
 using Evently.Domain.Abstractions;
 using Evently.Domain.Events;
 using Evently.Infrastructure.DomainEvents;
@@ -44,11 +45,13 @@ namespace Evently.Infrastructure.Extensions
             services.AddScoped<IDomainEventDispatcher, DomainEventDispatcher>();
             services.AddScoped<IDomainEventHandler<EventCreated>, LogEventCreatedHandler>();
             services.AddScoped<IDomainEventHandler<EventCreated>, CreateEventReadModelHandler>();
+            services.AddScoped<IRegistrationRepository, RegistrationRepository>();
         }
 
         private static void RegisterServices(IServiceCollection services)
         {
             services.AddScoped<CreateEventHandler>();
+            services.AddScoped<RegisterForEventHandler>();
         }
     }
 }
