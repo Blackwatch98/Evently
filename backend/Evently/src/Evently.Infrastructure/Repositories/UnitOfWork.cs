@@ -29,14 +29,14 @@ namespace Evently.Infrastructure.Repositories
                 entry.Entity.ClearDomainEvents();
             }
 
-            // 3. Zapisujemy zmiany w bazie
-            var result = await _dbContext.SaveChangesAsync(cancellationToken);
-
-            // 4. Dispatchujemy eventy
+            // 3. Dispatchujemy eventy
             if (domainEvents.Count > 0)
             {
                 await _domainEventDispatcher.DispatchAsync(domainEvents, cancellationToken);
             }
+
+            // 4. Zapisujemy zmiany w bazie
+            var result = await _dbContext.SaveChangesAsync(cancellationToken);
 
             return result;
         }

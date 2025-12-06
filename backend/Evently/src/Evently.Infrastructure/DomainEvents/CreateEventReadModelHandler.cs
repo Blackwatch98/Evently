@@ -18,14 +18,14 @@ namespace Evently.Application.Events.EventCreatedHandlers
         public async Task Handle(EventCreated domainEvent, CancellationToken cancellationToken = default)
         {
             var exists = await _dbContext.EventReadModels
-                .AnyAsync(x => x.Id == domainEvent.EventId, cancellationToken);
+                .AnyAsync(x => x.IdReadModel == domainEvent.EventId, cancellationToken);
 
             if (exists)
                 return;
 
             var readModel = new EventReadModel
             {
-                Id = domainEvent.EventId,
+                IdReadModel = domainEvent.EventId,
                 Title = domainEvent.Title,
                 ScheduledAt = domainEvent.ScheduledAt
             };

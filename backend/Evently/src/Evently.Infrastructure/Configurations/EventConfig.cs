@@ -12,10 +12,6 @@ namespace Evently.Infrastructure.Configurations
 
             builder.HasKey(e => e.IdEvent);
 
-            builder.Property(e => e.IdEvent)
-                .ValueGeneratedOnAdd()
-                .UseIdentityColumn();
-
             builder.Property(e => e.Title)
                 .IsRequired()
                 .HasMaxLength(50);

@@ -1,5 +1,6 @@
 ﻿using Evently.Application.Abstractions;
 using Evently.Domain.EventAggregate;
+using Microsoft.EntityFrameworkCore;
 
 namespace Evently.Infrastructure.Repositories
 {
@@ -13,8 +14,9 @@ namespace Evently.Infrastructure.Repositories
         }
 
         public async Task AddAsync(Event evt, CancellationToken cancellationToken = default)
-        {
-            await _dbContext.Events.AddAsync(evt, cancellationToken);
-        }
+            => await _dbContext.Events.AddAsync(evt, cancellationToken).AsTask();
+
+        public async Task<Event?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
+            => await _dbContext.Events.FirstOrDefaultAsync(e => e.IdEvent == id, cancellationToken);
     }
 }

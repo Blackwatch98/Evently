@@ -28,6 +28,6 @@ public sealed class CreateEventHandler
         await _eventRepository.AddAsync(evt, cancellationToken);
         await _unitOfWork.SaveChangesAsync(cancellationToken);
 
-        return evt.Id;
+        return evt.IdEvent;
     }
 }

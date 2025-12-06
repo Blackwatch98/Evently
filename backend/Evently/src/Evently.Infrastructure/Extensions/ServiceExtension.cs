@@ -5,6 +5,8 @@ using Evently.Application.Registrations.RegisterForEvent;
 using Evently.Domain.Abstractions;
 using Evently.Domain.Events;
 using Evently.Infrastructure.DomainEvents;
+using Evently.Infrastructure.Messaging;
+using Evently.Infrastructure.Outbox;
 using Evently.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
@@ -46,12 +48,16 @@ namespace Evently.Infrastructure.Extensions
             services.AddScoped<IDomainEventHandler<EventCreated>, LogEventCreatedHandler>();
             services.AddScoped<IDomainEventHandler<EventCreated>, CreateEventReadModelHandler>();
             services.AddScoped<IRegistrationRepository, RegistrationRepository>();
+            services.AddScoped<IDomainEventHandler<EventCreated>, PublishEventCreatedToOutboxHandler>();
+
         }
 
         private static void RegisterServices(IServiceCollection services)
         {
             services.AddScoped<CreateEventHandler>();
             services.AddScoped<RegisterForEventHandler>();
+            services.AddScoped<IMessageBus, LoggingMessageBus>();
+            services.AddHostedService<OutboxProcessor>();
         }
     }
 }

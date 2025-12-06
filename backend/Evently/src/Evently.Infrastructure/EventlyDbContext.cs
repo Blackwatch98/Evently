@@ -1,5 +1,6 @@
 ﻿using Evently.Domain.EventAggregate;
 using Evently.Domain.RegistrationAggregate;
+using Evently.Infrastructure.Persistance;
 using Evently.Infrastructure.ReadModels;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,6 +11,7 @@ namespace Evently.Infrastructure
         public DbSet<Event> Events => Set<Event>();
         public DbSet<EventReadModel> EventReadModels => Set<EventReadModel>();
         public DbSet<Registration> Registrations => Set<Registration>();
+        public DbSet<OutboxMessage> OutboxMessages => Set<OutboxMessage>();
 
         public EventlyDbContext(DbContextOptions<EventlyDbContext> options) : base(options) {}
 
