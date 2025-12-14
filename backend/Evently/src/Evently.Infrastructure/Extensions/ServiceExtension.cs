@@ -26,7 +26,7 @@ namespace Evently.Infrastructure.Extensions
             services.AddHttpContextAccessor();
 
             RegisterRepositories(services);
-            RegisterServices(services);
+            RegisterServices(services, builder.Configuration);
             return builder;
         }
 
@@ -52,12 +52,17 @@ namespace Evently.Infrastructure.Extensions
 
         }
 
-        private static void RegisterServices(IServiceCollection services)
+        private static void RegisterServices(IServiceCollection services, IConfiguration configuration)
         {
             services.AddScoped<CreateEventHandler>();
             services.AddScoped<RegisterForEventHandler>();
-            services.AddScoped<IMessageBus, LoggingMessageBus>();
+            //services.AddScoped<IMessageBus, LoggingMessageBus>();
             services.AddHostedService<OutboxProcessor>();
+
+            services.Configure<RabbitMqConfiguration>(
+                configuration.GetSection("RabbitMq"));
+
+            services.AddSingleton<IMessageBus, RabbitMqMessageBus>();
         }
     }
 }
