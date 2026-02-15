@@ -20,5 +20,6 @@ app.UseSwaggerDocumentation();
 app.UseHttpsRedirection();
 
 app.MapEventEndpoints();
+app.MapRegistrationEndpoints();
 
 app.Run();
