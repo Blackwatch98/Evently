@@ -39,7 +39,7 @@ namespace Evently.Infrastructure.Migrations
                     b.Property<DateTime>("ScheduledAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2025, 11, 26, 0, 4, 1, 356, DateTimeKind.Utc).AddTicks(5168));
+                        .HasDefaultValue(new DateTime(2026, 2, 14, 22, 20, 7, 525, DateTimeKind.Utc).AddTicks(7640));
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -50,7 +50,7 @@ namespace Evently.Infrastructure.Migrations
 
                     b.HasIndex("Title");
 
-                    b.ToTable("Events", "EMain", t =>
+                    b.ToTable("Events", "Main", t =>
                         {
                             t.HasCheckConstraint("CK_Event_Capacity_Positive", "[Capacity] >= 0");
                         });
@@ -73,14 +73,14 @@ namespace Evently.Infrastructure.Migrations
                     b.Property<DateTime>("RegisteredAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2025, 11, 26, 0, 4, 1, 357, DateTimeKind.Utc).AddTicks(7634));
+                        .HasDefaultValue(new DateTime(2026, 2, 14, 22, 20, 7, 526, DateTimeKind.Utc).AddTicks(4234));
 
                     b.HasKey("IdRegistration");
 
                     b.HasIndex("EventId", "Email")
                         .IsUnique();
 
-                    b.ToTable("Registrations", "EMain");
+                    b.ToTable("Registrations", "Main");
                 });
 
             modelBuilder.Entity("Evently.Infrastructure.Persistance.OutboxMessage", b =>
@@ -109,7 +109,7 @@ namespace Evently.Infrastructure.Migrations
 
                     b.HasKey("IdOutboxMessage");
 
-                    b.ToTable("OutboxMessages", "EMain");
+                    b.ToTable("OutboxMessages", "Main");
                 });
 
             modelBuilder.Entity("Evently.Infrastructure.ReadModels.EventReadModel", b =>
@@ -128,7 +128,7 @@ namespace Evently.Infrastructure.Migrations
 
                     b.HasKey("IdReadModel");
 
-                    b.ToTable("EntityReadModels", "EMain");
+                    b.ToTable("EntityReadModels", "Main");
                 });
 #pragma warning restore 612, 618
         }

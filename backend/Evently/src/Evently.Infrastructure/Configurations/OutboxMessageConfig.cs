@@ -8,7 +8,7 @@ namespace Evently.Infrastructure.Configurations
     {
         public void Configure(EntityTypeBuilder<OutboxMessage> builder)
         {
-            builder.ToTable("OutboxMessages", schema: "EMain");
+            builder.ToTable("OutboxMessages", schema: "Main");
 
             builder.HasKey(e => e.IdOutboxMessage);
 

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 18
-VisualStudioVersion = 18.3.11505.172 d18.3
+VisualStudioVersion = 18.3.11505.172
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Evently.Api", "src\Evently.Api\Evently.Api.csproj", "{93316936-9D5D-0036-2CA7-AF22AEE8D561}"
 EndProject
@@ -18,6 +18,11 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Evently.Tests", "test\Evently.Tests\Evently.Tests.csproj", "{E8FCD1D3-972D-3D9E-69BF-7DE986A17D2D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Evently.Notifications", "src\Evently.Notifications\Evently.Notifications.csproj", "{0AE07B4B-6E16-76A1-BA22-C10A0449E47F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{6B9AC2B5-8783-4987-B64E-C61336761D5B}"
+	ProjectSection(SolutionItems) = preProject
+		build\docker-compose.yaml = build\docker-compose.yaml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

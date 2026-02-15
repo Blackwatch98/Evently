@@ -8,7 +8,7 @@ namespace Evently.Infrastructure.Configurations
     {
         public void Configure(EntityTypeBuilder<Registration> builder)
         {
-            builder.ToTable("Registrations", schema: "EMain");
+            builder.ToTable("Registrations", schema: "Main");
 
             builder.HasKey(r => r.IdRegistration);
 

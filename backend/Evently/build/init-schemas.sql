@@ -1,0 +1,6 @@
+USE [Evently];
+GO
+
+IF SCHEMA_ID(N'Main') IS NULL
+  EXEC(N'CREATE SCHEMA [Main]');
+GO

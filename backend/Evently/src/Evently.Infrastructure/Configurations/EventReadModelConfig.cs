@@ -8,7 +8,7 @@ namespace Evently.Infrastructure.Configurations
     {
         public void Configure(EntityTypeBuilder<EventReadModel> builder)
         {
-            builder.ToTable("EntityReadModels", schema: "EMain");
+            builder.ToTable("EntityReadModels", schema: "Main");
 
             builder.HasKey(r => r.IdReadModel);
 
