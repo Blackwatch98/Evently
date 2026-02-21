@@ -1,4 +1,4 @@
-﻿namespace Evently.Infrastructure.Persistance
+﻿namespace Evently.Infrastructure.Outbox
 {
     public class OutboxMessage
     {

@@ -1,12 +1,11 @@
 ﻿using Evently.Application.Abstractions;
 using Evently.Application.Events.CreateEvent;
-using Evently.Application.Events.EventCreatedHandlers;
 using Evently.Application.Registrations.RegisterForEvent;
-using Evently.Domain.Abstractions;
-using Evently.Domain.Events;
+using Evently.Domain.EventAggregate.DomainEvents;
 using Evently.Infrastructure.DomainEvents;
 using Evently.Infrastructure.Messaging;
 using Evently.Infrastructure.Outbox;
+using Evently.Infrastructure.Projections.Events;
 using Evently.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;

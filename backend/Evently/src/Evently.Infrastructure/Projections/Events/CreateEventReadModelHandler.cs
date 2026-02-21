@@ -1,10 +1,10 @@
 ﻿using Evently.Application.Abstractions;
-using Evently.Domain.Events;
+using Evently.Domain.EventAggregate.DomainEvents;
 using Evently.Infrastructure;
 using Evently.Infrastructure.ReadModels;
 using Microsoft.EntityFrameworkCore;
 
-namespace Evently.Application.Events.EventCreatedHandlers
+namespace Evently.Infrastructure.Projections.Events
 {
     public sealed class CreateEventReadModelHandler : IDomainEventHandler<EventCreated>
     {

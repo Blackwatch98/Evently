@@ -1,4 +1,4 @@
-﻿namespace Evently.Domain.Abstractions
+﻿namespace Evently.Application.Abstractions
 {
     public interface IUnitOfWork
     {

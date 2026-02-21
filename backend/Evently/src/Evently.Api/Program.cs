@@ -1,4 +1,5 @@
-using Evently.Api.Endpoints;
+using Evently.Api.Endpoints.Events;
+using Evently.Api.Endpoints.Registrations;
 using Evently.Api.Extensions;
 using Evently.Infrastructure.Extensions;
 

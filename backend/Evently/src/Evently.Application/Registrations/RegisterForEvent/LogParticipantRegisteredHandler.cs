@@ -1,9 +1,9 @@
 ﻿using Evently.Application.Abstractions;
 using Evently.Application.Events.EventCreatedHandlers;
-using Evently.Domain.Events;
+using Evently.Domain.RegistrationAggregate.DomainEvents;
 using Microsoft.Extensions.Logging;
 
-namespace Evently.Application.Registrations.ParticipantRegisteredHandlers
+namespace Evently.Application.Registrations.RegisterForEvent
 {
     public sealed class LogParticipantRegisteredHandler : IDomainEventHandler<ParticipantRegistered>
     {

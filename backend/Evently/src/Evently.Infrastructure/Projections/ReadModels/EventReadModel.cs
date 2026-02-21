@@ -1,4 +1,4 @@
-﻿namespace Evently.Infrastructure.ReadModels
+﻿namespace Evently.Infrastructure.Projections.ReadModels
 {
     public sealed class EventReadModel
     {

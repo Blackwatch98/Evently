@@ -1,5 +1,5 @@
 ﻿using Evently.Application.Abstractions;
-using Evently.Domain.Abstractions;
+using Evently.Domain.Common;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Evently.Infrastructure.DomainEvents

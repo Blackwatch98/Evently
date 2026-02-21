@@ -1,6 +1,6 @@
-﻿using Evently.Domain.Abstractions;
+﻿using Evently.Domain.Common;
 
-namespace Evently.Domain.Events
+namespace Evently.Domain.RegistrationAggregate.DomainEvents
 {
     public sealed record ParticipantRegistered(
         Guid RegistrationId,

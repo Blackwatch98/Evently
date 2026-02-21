@@ -1,8 +1,8 @@
 ﻿using Evently.Application.Abstractions;
-using Evently.Domain.Events;
+using Evently.Domain.EventAggregate.DomainEvents;
 using Microsoft.Extensions.Logging;
 
-namespace Evently.Application.Events.EventCreatedHandlers
+namespace Evently.Application.Events.CreateEvent
 {
     public sealed class LogEventCreatedHandler : IDomainEventHandler<EventCreated>
     {

@@ -1,5 +1,5 @@
-﻿using Evently.Domain.Abstractions;
-using Evently.Domain.Events;
+﻿using Evently.Domain.Common;
+using Evently.Domain.EventAggregate.DomainEvents;
 
 namespace Evently.Domain.EventAggregate
 {

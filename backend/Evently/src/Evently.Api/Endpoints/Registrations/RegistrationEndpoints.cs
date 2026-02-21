@@ -1,7 +1,7 @@
-﻿using Evently.Api.Contracts.Events;
+﻿using Evently.Api.Endpoints.Registrations.Contracts;
 using Evently.Application.Registrations.RegisterForEvent;
 
-namespace Evently.Api.Endpoints
+namespace Evently.Api.Endpoints.Registrations
 {
     public static class RegistrationEndpoints
     {

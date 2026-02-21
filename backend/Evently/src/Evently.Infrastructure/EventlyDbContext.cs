@@ -1,7 +1,7 @@
 ﻿using Evently.Domain.EventAggregate;
 using Evently.Domain.RegistrationAggregate;
 using Evently.Infrastructure.Persistance;
-using Evently.Infrastructure.ReadModels;
+using Evently.Infrastructure.Projections.ReadModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace Evently.Infrastructure

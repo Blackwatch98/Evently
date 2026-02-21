@@ -1,10 +1,10 @@
 ﻿using Evently.Application.Abstractions;
 using Evently.Application.IntegrationEvents.Events;
-using Evently.Domain.Events;
+using Evently.Domain.EventAggregate.DomainEvents;
 using Evently.Infrastructure.Persistance;
 using System.Text.Json;
 
-namespace Evently.Infrastructure.DomainEvents
+namespace Evently.Infrastructure.Outbox
 {
     public sealed class PublishEventCreatedToOutboxHandler : IDomainEventHandler<EventCreated>
     {

@@ -1,4 +1,4 @@
-﻿using Evently.Infrastructure.ReadModels;
+﻿using Evently.Infrastructure.Projections.ReadModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

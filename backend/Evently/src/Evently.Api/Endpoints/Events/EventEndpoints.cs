@@ -4,7 +4,7 @@ using Evently.Application.Registrations.RegisterForEvent;
 using Evently.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
-namespace Evently.Api.Endpoints
+namespace Evently.Api.Endpoints.Events
 {
     public static class EventEndpoints
     {
