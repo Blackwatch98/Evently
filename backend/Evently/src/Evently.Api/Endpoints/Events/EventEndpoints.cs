@@ -1,6 +1,4 @@
-﻿using Evently.Api.Contracts.Events;
-using Evently.Application.Events.CreateEvent;
-using Evently.Application.Registrations.RegisterForEvent;
+﻿using Evently.Application.Events.CreateEvent;
 using Evently.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 

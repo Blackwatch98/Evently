@@ -1,4 +1,4 @@
-﻿using Evently.Infrastructure.Persistance;
+﻿using Evently.Infrastructure.Outbox;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

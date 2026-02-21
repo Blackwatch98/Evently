@@ -1,7 +1,6 @@
 ﻿using Evently.Application.Abstractions;
 using Evently.Domain.EventAggregate.DomainEvents;
-using Evently.Infrastructure;
-using Evently.Infrastructure.ReadModels;
+using Evently.Infrastructure.Projections.ReadModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace Evently.Infrastructure.Projections.Events
