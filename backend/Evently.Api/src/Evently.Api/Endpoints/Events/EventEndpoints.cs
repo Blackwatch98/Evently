@@ -8,7 +8,9 @@ public static class EventEndpoints
 {
     public static IEndpointRouteBuilder MapEventEndpoints(this IEndpointRouteBuilder endpoints)
     {
-        var group = endpoints.MapGroup("/api/events");
+        var group = endpoints
+            .MapGroup("/api/events")
+            .WithTags("Events");
 
         // POST /api/events
         group.MapPost("/", async (CreateEventCommand command, CreateEventHandler handler) =>
@@ -16,8 +18,7 @@ public static class EventEndpoints
             var id = await handler.HandleAsync(command);
             return Results.Created($"/api/events/{id}", new { id });
         })
-        .WithName("CreateEvent")
-        .WithTags("Events");
+        .WithName("CreateEvent");
 
         // GET /api/events
         group.MapGet("/", async (EventlyDbContext db, CancellationToken ct) =>
@@ -28,8 +29,7 @@ public static class EventEndpoints
 
             return Results.Ok(events);
         })
-        .WithName("GetEvents")
-        .WithTags("Events");
+        .WithName("GetEvents");
 
         return endpoints;
     }

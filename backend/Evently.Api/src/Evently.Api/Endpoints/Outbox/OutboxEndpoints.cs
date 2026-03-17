@@ -7,7 +7,9 @@ public static class OutboxEndpoints
 {
     public static IEndpointRouteBuilder MapOutboxEndpoints(this IEndpointRouteBuilder endpoints)
     {
-        var group = endpoints.MapGroup("/api/outbox");
+        var group = endpoints
+            .MapGroup("/api/outbox")
+            .WithTags("OutboxMessages");
 
         group.MapGet("/", async (EventlyDbContext db, CancellationToken ct) =>
         {
@@ -16,8 +18,7 @@ public static class OutboxEndpoints
 
             return Results.Ok(events);
         })
-        .WithName("GetOutboxMessages")
-        .WithTags("OutboxMessages");
+        .WithName("GetOutboxMessages");
 
         return endpoints;
     }

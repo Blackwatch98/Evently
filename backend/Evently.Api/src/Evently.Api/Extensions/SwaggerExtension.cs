@@ -18,7 +18,7 @@ namespace Evently.Api.Extensions
                 {
                     Title = "Evently API",
                     Version = "v1",
-                    Description = $"API do zarządzania wydarzeniami. ENV = {env.EnvironmentName}"
+                    Description = $"API for managing events. ENV = {env.EnvironmentName}"
                 });
 
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
