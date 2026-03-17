@@ -1,4 +1,4 @@
-﻿namespace Evently.Application.Registrations.RegisterForEvent;
+﻿namespace Evently.Application.Features.Registrations.RegisterForEvent;
 
 public sealed record RegisterForEventCommand(
     Guid EventId,

@@ -1,6 +1,6 @@
 ﻿using Evently.Application.Abstractions;
-using Evently.Application.Events.CreateEvent;
-using Evently.Application.Registrations.RegisterForEvent;
+using Evently.Application.Features.Events.CreateEvent;
+using Evently.Application.Features.Registrations.RegisterForEvent;
 using Evently.Domain.EventAggregate.DomainEvents;
 using Evently.Domain.RegistrationAggregate.DomainEvents;
 using Evently.Infrastructure.DomainEvents;

@@ -3,7 +3,7 @@ using Evently.Domain.Common;
 using Evently.Domain.EventAggregate;
 using Evently.Domain.RegistrationAggregate;
 
-namespace Evently.Application.Registrations.RegisterForEvent;
+namespace Evently.Application.Features.Registrations.RegisterForEvent;
 
 public sealed class RegisterForEventHandler
 {

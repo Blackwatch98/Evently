@@ -1,4 +1,6 @@
-﻿using Evently.Application.Events.CreateEvent;
+﻿using Evently.Api.Endpoints.Events.Contracts;
+using Evently.Application.Features.Events.CreateEvent;
+using Evently.Application.Features.Registrations.RegisterForEvent;
 using Evently.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
@@ -30,6 +32,22 @@ public static class EventEndpoints
             return Results.Ok(events);
         })
         .WithName("GetEvents");
+
+        // POST /api/registrations
+        group.MapPost("/{eventId:guid}/registrations", async (
+            Guid eventId,
+            RegisterForEventRequest request,
+            RegisterForEventHandler handler,
+            CancellationToken ct) =>
+        {
+            var command = new RegisterForEventCommand(eventId, request.Email);
+            var registrationId = await handler.HandleAsync(command, ct);
+
+            return Results.Created(
+                $"/{eventId}/registrations/{registrationId}",
+                new { id = registrationId });
+        })
+        .WithName("RegisterForEvent");
 
         return endpoints;
     }

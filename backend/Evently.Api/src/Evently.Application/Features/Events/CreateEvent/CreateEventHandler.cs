@@ -1,7 +1,7 @@
 ﻿using Evently.Application.Abstractions;
 using Evently.Domain.EventAggregate;
 
-namespace Evently.Application.Events.CreateEvent;
+namespace Evently.Application.Features.Events.CreateEvent;
 
 public sealed class CreateEventHandler
 {

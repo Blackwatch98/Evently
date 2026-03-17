@@ -2,7 +2,7 @@
 using Evently.Domain.EventAggregate.DomainEvents;
 using Microsoft.Extensions.Logging;
 
-namespace Evently.Application.Events.CreateEvent;
+namespace Evently.Application.Features.Events.CreateEvent;
 
 public sealed class LogEventCreatedHandler : IDomainEventHandler<EventCreated>
 {

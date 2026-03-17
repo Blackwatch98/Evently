@@ -1,4 +1,4 @@
-﻿namespace Evently.Application.Events.CreateEvent;
+﻿namespace Evently.Application.Features.Events.CreateEvent;
 
 public sealed record CreateEventCommand(
     string Title,

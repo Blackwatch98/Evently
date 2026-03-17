@@ -1,3 +1,3 @@
-﻿namespace Evently.Api.Endpoints.Registrations.Contracts;
+﻿namespace Evently.Api.Endpoints.Events.Contracts;
 
 public sealed record RegisterForEventRequest(string Email);
