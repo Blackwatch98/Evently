@@ -1,4 +1,4 @@
-﻿namespace Evently.Application.IntegrationEvents.Registrations
+﻿namespace Evently.Analytics.IntegrationEvents
 {
     public sealed record RegistrationCreatedIntegrationEvent(
         Guid Id,

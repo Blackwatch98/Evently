@@ -4,7 +4,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Evently.Application.Registrations.RegisterForEvent
 {
-    public sealed class LogParticipantRegisteredHandler : IDomainEventHandler<ParticipantRegistered>
+    public sealed class LogParticipantRegisteredHandler : IDomainEventHandler<RegistrationCreated>
     {
         private readonly ILogger<LogParticipantRegisteredHandler> _logger;
         public LogParticipantRegisteredHandler(ILogger<LogParticipantRegisteredHandler> logger)
@@ -12,7 +12,7 @@ namespace Evently.Application.Registrations.RegisterForEvent
             _logger = logger;
         }
 
-        public Task Handle(ParticipantRegistered domainEvent, CancellationToken cancellationToken = default)
+        public Task Handle(RegistrationCreated domainEvent, CancellationToken cancellationToken = default)
         {
             _logger.LogInformation(
                 "Participant registered: {EventId} - {RegistrationId} with email {Email}",

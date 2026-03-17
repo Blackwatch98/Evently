@@ -2,6 +2,7 @@
 using Evently.Application.Events.CreateEvent;
 using Evently.Application.Registrations.RegisterForEvent;
 using Evently.Domain.EventAggregate.DomainEvents;
+using Evently.Domain.RegistrationAggregate.DomainEvents;
 using Evently.Infrastructure.DomainEvents;
 using Evently.Infrastructure.Messaging;
 using Evently.Infrastructure.Outbox;
@@ -48,7 +49,7 @@ namespace Evently.Infrastructure.Extensions
             services.AddScoped<IDomainEventHandler<EventCreated>, CreateEventReadModelHandler>();
             services.AddScoped<IRegistrationRepository, RegistrationRepository>();
             services.AddScoped<IDomainEventHandler<EventCreated>, PublishEventCreatedToOutboxHandler>();
-
+            services.AddScoped<IDomainEventHandler<RegistrationCreated>, RegistrationCreatedToOutboxHandler>();
         }
 
         private static void RegisterServices(IServiceCollection services, IConfiguration configuration)

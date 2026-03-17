@@ -1,5 +1,7 @@
 ﻿using Evently.Api.Endpoints.Registrations.Contracts;
 using Evently.Application.Registrations.RegisterForEvent;
+using Evently.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 
 namespace Evently.Api.Endpoints.Registrations
 {
@@ -24,6 +26,17 @@ namespace Evently.Api.Endpoints.Registrations
                     new { id = registrationId });
             })
             .WithName("RegisterForEvent")
+            .WithTags("Registrations");
+
+
+            group.MapGet("/api/registrations", async (EventlyDbContext db, CancellationToken ct) =>
+            {
+                var events = await db.Registrations
+                    .ToListAsync(ct);
+
+                return Results.Ok(events);
+            })
+            .WithName("GetRegistrations")
             .WithTags("Registrations");
 
             return endpoints;

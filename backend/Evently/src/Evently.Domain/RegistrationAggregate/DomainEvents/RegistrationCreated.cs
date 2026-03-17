@@ -2,7 +2,7 @@
 
 namespace Evently.Domain.RegistrationAggregate.DomainEvents
 {
-    public sealed record ParticipantRegistered(
+    public sealed record RegistrationCreated(
         Guid RegistrationId,
         Guid EventId,
         string Email

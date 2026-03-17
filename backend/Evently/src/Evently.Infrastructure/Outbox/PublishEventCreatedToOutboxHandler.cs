@@ -1,4 +1,5 @@
 ﻿using Evently.Application.Abstractions;
+using Evently.Application.IntegrationEvents;
 using Evently.Application.IntegrationEvents.Events;
 using Evently.Domain.EventAggregate.DomainEvents;
 using System.Text.Json;
@@ -28,7 +29,7 @@ namespace Evently.Infrastructure.Outbox
             {
                 IdOutboxMessage = integrationEvent.Id,
                 OccurredOn = integrationEvent.OccurredOn,
-                Type = integrationEvent.GetType().FullName!,
+                Type = IntegrationEventNames.EventCreated,
                 Payload = JsonSerializer.Serialize(integrationEvent)
             };
 

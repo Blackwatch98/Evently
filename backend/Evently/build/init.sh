@@ -17,6 +17,13 @@ for i in $(seq 1 180); do
   sleep 2
 done
 
+echo "Waiting for EventlyAnalytics ONLINE..."
+for i in $(seq 1 180); do
+  st=$(/opt/mssql-tools/bin/sqlcmd -C -S mssql -U sa -P "Str0ngPassw0rd!" -h -1 -W -Q "SET NOCOUNT ON; SELECT state_desc FROM sys.databases WHERE name=N'EventlyAnalytics';" 2>/dev/null || true)
+  [ "$st" = "ONLINE" ] && break
+  sleep 2
+done
+
 echo "Running init-schemas.sql..."
 /opt/mssql-tools/bin/sqlcmd -C -S mssql -U sa -P "Str0ngPassw0rd!" -b -i /scripts/init-schemas.sql
 

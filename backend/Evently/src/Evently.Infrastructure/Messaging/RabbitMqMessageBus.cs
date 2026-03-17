@@ -32,7 +32,7 @@ namespace Evently.Infrastructure.Messaging
 
             // 2. Tworzymy połączenie i kanał tylko na czas publikacji
             using var connection = await _factory.CreateConnectionAsync(cancellationToken);
-            using var channel = await connection.CreateChannelAsync();
+            using var channel = await connection.CreateChannelAsync(cancellationToken: cancellationToken);
 
             // 3. Deklarujemy kolejkę (idempotentne – jak istnieje, to nic się nie stanie)
             await channel.QueueDeclareAsync(
@@ -44,10 +44,22 @@ namespace Evently.Infrastructure.Messaging
                 cancellationToken: cancellationToken
             );
 
+            var properties = new BasicProperties
+            {
+                Persistent = true,
+                Type = type,
+                Headers = new Dictionary<string, object?>
+                {
+                    ["message_type"] = type,
+                    ["message_version"] = "1"
+                }
+            };
+
             // 4. Publikujemy wiadomość (tu dopasuj do dokładnej sygnatury swojej biblioteki)
             await channel.BasicPublishAsync(
                 exchange: "",                        // domyślny exchange
                 routingKey: _config.QueueName,
+                basicProperties: properties,
                 mandatory: false,
                 body: body,
                 cancellationToken: cancellationToken

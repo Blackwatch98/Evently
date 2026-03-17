@@ -19,7 +19,7 @@ namespace Evently.Domain.RegistrationAggregate
             Email = email;
             RegisteredAt = DateTime.UtcNow;
 
-            AddDomainEvent(new ParticipantRegistered(IdRegistration, EventId, Email));
+            AddDomainEvent(new RegistrationCreated(IdRegistration, EventId, Email));
         }
 
         public static Registration Create(Guid eventId, string email)
