@@ -1,0 +1,37 @@
+services:
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: mssql-local
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: "Developer"
+      MSSQL_SA_PASSWORD: "Str0ngPassw0rd!"
+    ports:
+      - "1433:1433"
+    volumes:
+      - mssql-data:/var/opt/mssql
+    restart: unless-stopped
+
+  mssql-init:
+    image: mcr.microsoft.com/mssql-tools:latest
+    container_name: mssql-init
+    depends_on:
+      - mssql
+    volumes:
+      - ./:/scripts:ro
+    entrypoint: ["/bin/bash", "/scripts/init.sh"]
+    restart: "no"
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: evently-rabbit
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+
+
+volumes:
+  mssql-data:
