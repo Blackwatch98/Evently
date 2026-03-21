@@ -1,8 +1,8 @@
 ﻿using Evently.Application.Abstractions;
 using Evently.Application.Features.Events.CreateEvent;
 using Evently.Application.Features.Registrations.RegisterForEvent;
-using Evently.Domain.EventAggregate.DomainEvents;
-using Evently.Domain.RegistrationAggregate.DomainEvents;
+using Evently.Domain.Aggregates.EventAggregate.DomainEvents;
+using Evently.Domain.Aggregates.RegistrationAggregate.DomainEvents;
 using Evently.Infrastructure.DomainEvents;
 using Evently.Infrastructure.Messaging;
 using Evently.Infrastructure.Outbox;

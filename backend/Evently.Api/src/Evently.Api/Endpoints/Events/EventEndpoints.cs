@@ -40,7 +40,7 @@ public static class EventEndpoints
             RegisterForEventHandler handler,
             CancellationToken ct) =>
         {
-            var command = new RegisterForEventCommand(eventId, request.Email);
+            var command = new RegisterForEventCommand(eventId, request.userId);
             var registrationId = await handler.HandleAsync(command, ct);
 
             return Results.Created(

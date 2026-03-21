@@ -1,7 +1,7 @@
-﻿using Evently.Domain.Common;
-using Evently.Domain.EventAggregate.DomainEvents;
+﻿using Evently.Domain.Aggregates.EventAggregate.DomainEvents;
+using Evently.Domain.Common;
 
-namespace Evently.Domain.EventAggregate;
+namespace Evently.Domain.Aggregates.EventAggregate;
 
 public sealed class Event : Entity
 {

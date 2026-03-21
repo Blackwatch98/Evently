@@ -2,5 +2,5 @@
 
 public sealed record RegisterForEventCommand(
     Guid EventId,
-    string Email
+    Guid UserId
 );

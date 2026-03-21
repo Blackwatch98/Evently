@@ -1,4 +1,4 @@
-﻿using Evently.Domain.EventAggregate;
+﻿using Evently.Domain.Aggregates.EventAggregate;
 
 namespace Evently.Application.Abstractions;
 
