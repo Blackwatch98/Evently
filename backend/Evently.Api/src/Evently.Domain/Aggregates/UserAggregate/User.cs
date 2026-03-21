@@ -11,9 +11,11 @@ public sealed class User : Entity
     public string LastName { get; private set; } = default!;
     public int Age { get; private set; }
     public string Email { get; private set; } = default!;
+    public string PasswordHash { get; private set; } = default!;
     public bool IsBlocked { get; private set; }
     public int RoleId { get; private set; }
     public string? RefreshToken { get; private set; }
+    public DateTime? RefreshTokenExpiresAtUtc { get; private set; }
     public DateTime CreatedAt { get; private set; }
 
     public Role? Role { get; private set; }
@@ -24,6 +26,7 @@ public sealed class User : Entity
             string lastName,
             int age,
             string email,
+            string passwordHash,
             int roleId)
     {
         IdUser = Guid.NewGuid();
@@ -31,12 +34,10 @@ public sealed class User : Entity
         LastName = lastName;
         Age = age;
         Email = email;
+        PasswordHash = passwordHash;
         RoleId = roleId;
         IsBlocked = false;
         CreatedAt = DateTime.UtcNow;
-        RefreshToken = null;
-
-        // AddDomainEvent(new UserCreatedDomainEvent(IdUser, Email));
     }
 
     public static User Create(
@@ -44,6 +45,7 @@ public sealed class User : Entity
         string lastName,
         int age,
         string email,
+        string passwordHash,
         int roleId)
     {
         ValidateFirstName(firstName);
@@ -51,8 +53,15 @@ public sealed class User : Entity
         ValidateAge(age);
         ValidateEmail(email);
         ValidateRole(roleId);
+        ValidatePasswordHash(passwordHash);
 
-        return new User(firstName.Trim(), lastName.Trim(), age, email.Trim().ToLowerInvariant(), roleId);
+        return new User(
+            firstName.Trim(),
+            lastName.Trim(),
+            age,
+            email.Trim().ToLowerInvariant(),
+            passwordHash,
+            roleId);
     }
 
     public void UpdatePersonalData(string firstName, string lastName, int age)
@@ -84,16 +93,15 @@ public sealed class User : Entity
         RoleId = roleId;
     }
 
-    public void SetRefreshToken(string refreshToken)
+    public void SetRefreshToken(string refreshToken, DateTime expiresAtUtc)
     {
-        ThrowIfBlocked();
-
         if (string.IsNullOrWhiteSpace(refreshToken))
         {
             throw new ArgumentException("Refresh token cannot be empty.", nameof(refreshToken));
         }
 
         RefreshToken = refreshToken;
+        RefreshTokenExpiresAtUtc = expiresAtUtc;
     }
 
     public void ClearRefreshToken()
@@ -186,6 +194,14 @@ public sealed class User : Entity
         if (roleId <= 0)
         {
             throw new ArgumentOutOfRangeException(nameof(roleId), "RoleId must be greater than zero.");
+        }
+    }
+
+    private static void ValidatePasswordHash(string passwordHash)
+    {
+        if (string.IsNullOrWhiteSpace(passwordHash))
+        {
+            throw new ArgumentException("Password hash cannot be empty.", nameof(passwordHash));
         }
     }
 }

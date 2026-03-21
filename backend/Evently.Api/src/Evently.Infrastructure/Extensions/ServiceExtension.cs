@@ -8,7 +8,6 @@ using Evently.Infrastructure.Messaging;
 using Evently.Infrastructure.Outbox;
 using Evently.Infrastructure.Projections.Events;
 using Evently.Infrastructure.Repositories;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,19 +16,6 @@ namespace Evently.Infrastructure.Extensions;
 
 public static class ServiceExtension
 {
-    public static WebApplicationBuilder AddInfrastructure(this WebApplicationBuilder builder)
-    {
-        var services = builder.Services;
-
-        services.AddDataAccess(builder.Configuration);
-
-        services.AddHttpContextAccessor();
-
-        RegisterRepositories(services);
-        RegisterServices(services, builder.Configuration);
-        return builder;
-    }
-
     public static IServiceCollection AddDataAccess(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddDbContext<EventlyDbContext>(options =>
@@ -40,7 +26,7 @@ public static class ServiceExtension
         return services;
     }
 
-    private static void RegisterRepositories(IServiceCollection services)
+    public static void RegisterRepositories(IServiceCollection services)
     {
         services.AddScoped<IEventRepository, EventRepository>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -52,7 +38,7 @@ public static class ServiceExtension
         services.AddScoped<IDomainEventHandler<RegistrationCreated>, RegistrationCreatedToOutboxHandler>();
     }
 
-    private static void RegisterServices(IServiceCollection services, IConfiguration configuration)
+    public static void RegisterServices(IServiceCollection services, IConfiguration configuration)
     {
         services.AddScoped<CreateEventHandler>();
         services.AddScoped<RegisterForEventHandler>();

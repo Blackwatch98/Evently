@@ -2,7 +2,7 @@ using Evently.Api.Endpoints.Events;
 using Evently.Api.Endpoints.Outbox;
 using Evently.Api.Endpoints.Registrations;
 using Evently.Api.Extensions;
-using Evently.Infrastructure.Extensions;
+using Evently.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
