@@ -2,6 +2,8 @@
 using Evently.Application.Features.Auth;
 using Evently.Application.Features.Events.CreateEvent;
 using Evently.Application.Features.Registrations.RegisterForEvent;
+using Evently.Application.Features.UserManagement.Commands;
+using Evently.Application.Features.UserManagement.Queries;
 using Evently.Domain.Aggregates.EventAggregate.DomainEvents;
 using Evently.Domain.Aggregates.RegistrationAggregate.DomainEvents;
 using Evently.Infrastructure.DomainEvents;
@@ -35,6 +37,8 @@ public static class ServiceExtension
         services.AddScoped<LoginCommandHandler>();
         services.AddScoped<LogoutCommandHandler>();
         services.AddScoped<RefreshTokenCommandHandler>();
+        services.AddScoped<CreateUserCommandHandler>();
+        services.AddScoped<GetUsersQueryHandler>();
         services.AddScoped<IDomainEventDispatcher, DomainEventDispatcher>();
         services.AddScoped<IDomainEventHandler<EventCreated>, LogEventCreatedHandler>();
         services.AddScoped<IDomainEventHandler<EventCreated>, CreateEventReadModelHandler>();

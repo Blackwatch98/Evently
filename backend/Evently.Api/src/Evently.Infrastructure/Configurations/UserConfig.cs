@@ -27,11 +27,15 @@ internal sealed class UserConfiguration : IEntityTypeConfiguration<User>
             .IsRequired();
 
         builder.Property(x => x.Email)
-            .IsRequired()
-            .HasMaxLength(256);
+                    .IsRequired()
+                    .HasMaxLength(256);
 
         builder.HasIndex(x => x.Email)
             .IsUnique();
+
+        builder.Property(x => x.PasswordHash)
+            .IsRequired()
+            .HasMaxLength(1000);
 
         builder.Property(x => x.IsBlocked)
             .IsRequired();
@@ -41,6 +45,9 @@ internal sealed class UserConfiguration : IEntityTypeConfiguration<User>
 
         builder.Property(x => x.RefreshToken)
             .HasMaxLength(500);
+
+        builder.Property(x => x.RefreshTokenExpiresAtUtc)
+            .IsRequired(false);
 
         builder.Property(x => x.CreatedAt)
             .IsRequired();
