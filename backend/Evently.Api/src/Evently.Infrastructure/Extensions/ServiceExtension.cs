@@ -1,14 +1,16 @@
 ﻿using Evently.Application.Abstractions;
+using Evently.Application.Features.Auth;
 using Evently.Application.Features.Events.CreateEvent;
 using Evently.Application.Features.Registrations.RegisterForEvent;
-using Evently.Domain.EventAggregate.DomainEvents;
-using Evently.Domain.RegistrationAggregate.DomainEvents;
+using Evently.Application.Features.UserManagement.Commands;
+using Evently.Application.Features.UserManagement.Queries;
+using Evently.Domain.Aggregates.EventAggregate.DomainEvents;
+using Evently.Domain.Aggregates.RegistrationAggregate.DomainEvents;
 using Evently.Infrastructure.DomainEvents;
 using Evently.Infrastructure.Messaging;
 using Evently.Infrastructure.Outbox;
 using Evently.Infrastructure.Projections.Events;
 using Evently.Infrastructure.Repositories;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,19 +19,6 @@ namespace Evently.Infrastructure.Extensions;
 
 public static class ServiceExtension
 {
-    public static WebApplicationBuilder AddInfrastructure(this WebApplicationBuilder builder)
-    {
-        var services = builder.Services;
-
-        services.AddDataAccess(builder.Configuration);
-
-        services.AddHttpContextAccessor();
-
-        RegisterRepositories(services);
-        RegisterServices(services, builder.Configuration);
-        return builder;
-    }
-
     public static IServiceCollection AddDataAccess(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddDbContext<EventlyDbContext>(options =>
@@ -40,10 +29,16 @@ public static class ServiceExtension
         return services;
     }
 
-    private static void RegisterRepositories(IServiceCollection services)
+    public static void RegisterRepositories(IServiceCollection services)
     {
+        services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IEventRepository, EventRepository>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
+        services.AddScoped<LoginCommandHandler>();
+        services.AddScoped<LogoutCommandHandler>();
+        services.AddScoped<RefreshTokenCommandHandler>();
+        services.AddScoped<CreateUserCommandHandler>();
+        services.AddScoped<GetUsersQueryHandler>();
         services.AddScoped<IDomainEventDispatcher, DomainEventDispatcher>();
         services.AddScoped<IDomainEventHandler<EventCreated>, LogEventCreatedHandler>();
         services.AddScoped<IDomainEventHandler<EventCreated>, CreateEventReadModelHandler>();
@@ -52,7 +47,7 @@ public static class ServiceExtension
         services.AddScoped<IDomainEventHandler<RegistrationCreated>, RegistrationCreatedToOutboxHandler>();
     }
 
-    private static void RegisterServices(IServiceCollection services, IConfiguration configuration)
+    public static void RegisterServices(IServiceCollection services, IConfiguration configuration)
     {
         services.AddScoped<CreateEventHandler>();
         services.AddScoped<RegisterForEventHandler>();

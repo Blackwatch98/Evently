@@ -1,5 +1,5 @@
 ﻿using Evently.Application.Abstractions;
-using Evently.Domain.EventAggregate.DomainEvents;
+using Evently.Domain.Aggregates.EventAggregate.DomainEvents;
 using Microsoft.Extensions.Logging;
 
 namespace Evently.Application.Features.Events.CreateEvent;

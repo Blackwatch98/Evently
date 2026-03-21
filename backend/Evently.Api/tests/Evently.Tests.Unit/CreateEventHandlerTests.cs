@@ -1,6 +1,6 @@
 ﻿using Evently.Application.Abstractions;
 using Evently.Application.Features.Events.CreateEvent;
-using Evently.Domain.EventAggregate;
+using Evently.Domain.Aggregates.EventAggregate;
 using NSubstitute;
 using Shouldly;
 

@@ -1,7 +1,7 @@
 ﻿using Evently.Application.Abstractions;
 using Evently.Application.IntegrationEvents;
 using Evently.Application.IntegrationEvents.Events;
-using Evently.Domain.EventAggregate.DomainEvents;
+using Evently.Domain.Aggregates.EventAggregate.DomainEvents;
 using System.Text.Json;
 
 namespace Evently.Infrastructure.Outbox;

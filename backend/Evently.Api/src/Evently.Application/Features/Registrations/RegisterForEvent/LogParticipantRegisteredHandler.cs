@@ -1,5 +1,5 @@
 ﻿using Evently.Application.Abstractions;
-using Evently.Domain.RegistrationAggregate.DomainEvents;
+using Evently.Domain.Aggregates.RegistrationAggregate.DomainEvents;
 using Microsoft.Extensions.Logging;
 
 namespace Evently.Application.Features.Registrations.RegisterForEvent;
@@ -18,7 +18,7 @@ public sealed class LogParticipantRegisteredHandler : IDomainEventHandler<Regist
             "Participant registered: {EventId} - {RegistrationId} with email {Email}",
             domainEvent.EventId,
             domainEvent.RegistrationId,
-            domainEvent.Email);
+            domainEvent.UserId);
 
         return Task.CompletedTask;
     }

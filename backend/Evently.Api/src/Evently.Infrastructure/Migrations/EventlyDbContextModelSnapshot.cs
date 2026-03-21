@@ -22,7 +22,7 @@ namespace Evently.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Evently.Domain.EventAggregate.Event", b =>
+            modelBuilder.Entity("Evently.Domain.Aggregates.EventAggregate.Event", b =>
                 {
                     b.Property<Guid>("IdEvent")
                         .ValueGeneratedOnAdd()
@@ -39,7 +39,7 @@ namespace Evently.Infrastructure.Migrations
                     b.Property<DateTime>("ScheduledAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2026, 2, 14, 22, 20, 7, 525, DateTimeKind.Utc).AddTicks(7640));
+                        .HasDefaultValue(new DateTime(2026, 3, 21, 21, 27, 42, 504, DateTimeKind.Utc).AddTicks(1786));
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -56,34 +56,135 @@ namespace Evently.Infrastructure.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Evently.Domain.RegistrationAggregate.Registration", b =>
+            modelBuilder.Entity("Evently.Domain.Aggregates.RegistrationAggregate.Registration", b =>
                 {
                     b.Property<Guid>("IdRegistration")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
 
                     b.Property<Guid>("EventId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("RegisteredAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2026, 2, 14, 22, 20, 7, 526, DateTimeKind.Utc).AddTicks(4234));
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("IdRegistration");
 
-                    b.HasIndex("EventId", "Email")
+                    b.HasIndex("UserId");
+
+                    b.HasIndex("EventId", "UserId")
                         .IsUnique();
 
                     b.ToTable("Registrations", "Main");
                 });
 
-            modelBuilder.Entity("Evently.Infrastructure.Persistance.OutboxMessage", b =>
+            modelBuilder.Entity("Evently.Domain.Aggregates.UserAggregate.User", b =>
+                {
+                    b.Property<Guid>("IdUser")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Age")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<bool>("IsBlocked")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("PasswordHash")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<string>("RefreshToken")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<DateTime?>("RefreshTokenExpiresAtUtc")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("IdUser");
+
+                    b.HasIndex("Email")
+                        .IsUnique();
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("Users", "Main");
+                });
+
+            modelBuilder.Entity("Evently.Domain.Entities.Role", b =>
+                {
+                    b.Property<int>("IdRole")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<int>("Priority")
+                        .HasColumnType("int");
+
+                    b.HasKey("IdRole");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("Roles", "Dict", t =>
+                        {
+                            t.HasCheckConstraint("CK_Roles_IdRole_Positive", "IdRole > 0");
+
+                            t.HasCheckConstraint("CK_Roles_Priority", "Priority > 0");
+                        });
+
+                    b.HasData(
+                        new
+                        {
+                            IdRole = 1,
+                            Description = "Administrator with full access to the system.",
+                            Name = "Admin",
+                            Priority = 1
+                        },
+                        new
+                        {
+                            IdRole = 2,
+                            Description = "Regular application user with limited access.",
+                            Name = "User",
+                            Priority = 2
+                        });
+                });
+
+            modelBuilder.Entity("Evently.Infrastructure.Outbox.OutboxMessage", b =>
                 {
                     b.Property<Guid>("IdOutboxMessage")
                         .ValueGeneratedOnAdd()
@@ -112,7 +213,7 @@ namespace Evently.Infrastructure.Migrations
                     b.ToTable("OutboxMessages", "Main");
                 });
 
-            modelBuilder.Entity("Evently.Infrastructure.ReadModels.EventReadModel", b =>
+            modelBuilder.Entity("Evently.Infrastructure.Projections.ReadModels.EventReadModel", b =>
                 {
                     b.Property<Guid>("IdReadModel")
                         .ValueGeneratedOnAdd()
@@ -129,6 +230,26 @@ namespace Evently.Infrastructure.Migrations
                     b.HasKey("IdReadModel");
 
                     b.ToTable("EntityReadModels", "Main");
+                });
+
+            modelBuilder.Entity("Evently.Domain.Aggregates.RegistrationAggregate.Registration", b =>
+                {
+                    b.HasOne("Evently.Domain.Aggregates.UserAggregate.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Evently.Domain.Aggregates.UserAggregate.User", b =>
+                {
+                    b.HasOne("Evently.Domain.Entities.Role", "Role")
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Role");
                 });
 #pragma warning restore 612, 618
         }

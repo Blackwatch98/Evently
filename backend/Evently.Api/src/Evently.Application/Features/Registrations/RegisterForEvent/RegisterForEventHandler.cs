@@ -1,7 +1,7 @@
 ﻿using Evently.Application.Abstractions;
+using Evently.Domain.Aggregates.EventAggregate;
+using Evently.Domain.Aggregates.RegistrationAggregate;
 using Evently.Domain.Common;
-using Evently.Domain.EventAggregate;
-using Evently.Domain.RegistrationAggregate;
 
 namespace Evently.Application.Features.Registrations.RegisterForEvent;
 
@@ -31,7 +31,7 @@ public sealed class RegisterForEventHandler
 
         bool alreadyRegistered = await _registrationRepository.ExistsAsync(
             command.EventId,
-            command.Email,
+            command.UserId,
             cancellationToken);
 
         if (alreadyRegistered)
@@ -48,7 +48,7 @@ public sealed class RegisterForEventHandler
             throw new DomainException("Event is full.");
         }
 
-        var registration = Registration.Create(command.EventId, command.Email);
+        var registration = Registration.Create(command.EventId, command.UserId);
 
         await _registrationRepository.AddAsync(registration, cancellationToken);
         await _unitOfWork.SaveChangesAsync(cancellationToken);

@@ -1,6 +1,6 @@
 ﻿using Evently.Domain.Common;
 
-namespace Evently.Domain.EventAggregate.DomainEvents;
+namespace Evently.Domain.Aggregates.EventAggregate.DomainEvents;
 
 public sealed record EventCreated(Guid EventId, string Title, DateTime ScheduledAt) : IDomainEvent
 {

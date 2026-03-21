@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Evently.Infrastructure.Configurations;
 
-public sealed class OutboxMessageConfig : IEntityTypeConfiguration<OutboxMessage>
+internal sealed class OutboxMessageConfig : IEntityTypeConfiguration<OutboxMessage>
 {
     public void Configure(EntityTypeBuilder<OutboxMessage> builder)
     {

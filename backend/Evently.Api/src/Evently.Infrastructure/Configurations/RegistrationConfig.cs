@@ -1,26 +1,41 @@
-﻿using Evently.Domain.RegistrationAggregate;
+﻿using Evently.Domain.Aggregates.RegistrationAggregate;
+using Evently.Domain.Aggregates.UserAggregate;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Evently.Infrastructure.Configurations;
 
-public sealed class RegistrationConfig : IEntityTypeConfiguration<Registration>
+internal sealed class RegistrationConfig : IEntityTypeConfiguration<Registration>
 {
     public void Configure(EntityTypeBuilder<Registration> builder)
     {
         builder.ToTable("Registrations", schema: "Main");
 
-        builder.HasKey(r => r.IdRegistration);
+        builder.HasKey(x => x.IdRegistration);
 
-        builder.Property(r => r.Email)
+        builder.Property(x => x.IdRegistration)
+            .ValueGeneratedNever();
+
+        builder.Property(x => x.EventId)
+            .IsRequired();
+
+        builder.Property(x => x.UserId)
+            .IsRequired();
+
+        builder.Property(x => x.Status)
             .IsRequired()
-            .HasMaxLength(200);
+            .HasConversion<int>();
 
-        builder.HasIndex(r => new { r.EventId, r.Email })
+        builder.Property(x => x.RegisteredAt)
+            .IsRequired();
+
+        builder.HasIndex(x => new { x.EventId, x.UserId })
             .IsUnique();
 
-        builder.Property(r => r.RegisteredAt)
-            .IsRequired()
-            .HasDefaultValue(DateTime.UtcNow);
+        builder.HasOne<User>()
+            .WithMany()
+            .HasForeignKey(x => x.UserId)
+            .HasPrincipalKey(x => x.IdUser)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

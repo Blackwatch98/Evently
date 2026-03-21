@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Evently.Infrastructure.Configurations;
 
-public sealed class EventReadModelConfig : IEntityTypeConfiguration<EventReadModel>
+internal sealed class EventReadModelConfig : IEntityTypeConfiguration<EventReadModel>
 {
     public void Configure(EntityTypeBuilder<EventReadModel> builder)
     {
