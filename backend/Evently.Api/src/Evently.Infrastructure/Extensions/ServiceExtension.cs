@@ -1,4 +1,5 @@
 ﻿using Evently.Application.Abstractions;
+using Evently.Application.Features.Auth;
 using Evently.Application.Features.Events.CreateEvent;
 using Evently.Application.Features.Registrations.RegisterForEvent;
 using Evently.Domain.Aggregates.EventAggregate.DomainEvents;
@@ -28,8 +29,12 @@ public static class ServiceExtension
 
     public static void RegisterRepositories(IServiceCollection services)
     {
+        services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IEventRepository, EventRepository>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
+        services.AddScoped<LoginCommandHandler>();
+        services.AddScoped<LogoutCommandHandler>();
+        services.AddScoped<RefreshTokenCommandHandler>();
         services.AddScoped<IDomainEventDispatcher, DomainEventDispatcher>();
         services.AddScoped<IDomainEventHandler<EventCreated>, LogEventCreatedHandler>();
         services.AddScoped<IDomainEventHandler<EventCreated>, CreateEventReadModelHandler>();

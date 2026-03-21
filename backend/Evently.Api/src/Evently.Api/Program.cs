@@ -1,3 +1,4 @@
+using Evently.Api.Endpoints.Auth;
 using Evently.Api.Endpoints.Events;
 using Evently.Api.Endpoints.Outbox;
 using Evently.Api.Endpoints.Registrations;
@@ -24,5 +25,6 @@ app.UseHttpsRedirection();
 app.MapEventEndpoints();
 app.MapRegistrationEndpoints();
 app.MapOutboxEndpoints();
+app.MapAuthEndpoints();
 
 app.Run();
