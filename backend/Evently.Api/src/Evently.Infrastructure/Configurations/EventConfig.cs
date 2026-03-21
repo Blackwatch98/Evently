@@ -1,10 +1,10 @@
-﻿using Evently.Domain.EventAggregate;
+﻿using Evently.Domain.Aggregates.EventAggregate;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Evently.Infrastructure.Configurations;
 
-public sealed class EventConfig : IEntityTypeConfiguration<Event>
+internal sealed class EventConfig : IEntityTypeConfiguration<Event>
 {
     public void Configure(EntityTypeBuilder<Event> builder)
     {
